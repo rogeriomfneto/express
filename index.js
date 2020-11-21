@@ -10,6 +10,20 @@ app.use((req, res, next) => {
   next();
 });
 
+app.post('/corpo', (req, res) => {
+  let corpo = '';
+  req.on('data', parte => corpo += parte);
+  req.on('end', () => res.send(corpo));
+});
+
+app.get('/clientes/relatorio', (req, res) => {
+  res.send(`Cliente relatório:\n completo = ${req.query.completo}\n ano = ${req.query.ano}`);
+});
+
+app.get('/clientes/:id', (req, res) => {
+  res.send(`Cliente ${req.params.id} selecionado`);
+});
+
 app.get('/opa', (req, res, next) => {
   console.log("Durante...");
 
