@@ -1,12 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const saudacao = require('./saudacaoMid');
+const usuarioApi = require('./api/usuario');
+const produtoApi = require('./api/produto');
 
 const app = express();
+produtoApi(app, 'texto adicional');
 
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+
+app.post('/usuario', usuarioApi.salvar);
+app.get('/usuario', usuarioApi.obter);
 
 app.use(saudacao('Rogerinho'));
 
