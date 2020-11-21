@@ -1,7 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const saudacao = require('./saudacaoMid');
 
 const app = express();
+
+app.use(bodyParser.text());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 app.use(saudacao('Rogerinho'));
 
@@ -11,9 +16,12 @@ app.use((req, res, next) => {
 });
 
 app.post('/corpo', (req, res) => {
-  let corpo = '';
-  req.on('data', parte => corpo += parte);
-  req.on('end', () => res.send(corpo));
+  // let corpo = '';
+  // req.on('data', parte => corpo += parte);
+  // req.on('end', () => res.send(corpo));
+  // console.log(typeof req.body);
+  // console.log(req.body);
+  res.send(req.body);
 });
 
 app.get('/clientes/relatorio', (req, res) => {
